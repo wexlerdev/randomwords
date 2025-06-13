@@ -7,6 +7,7 @@ import (
 	"os"
 	"log"
 	"context"
+	"strings"
 	"google.golang.org/genai"
 	"github.com/joho/godotenv"
 )
@@ -47,7 +48,10 @@ func main() {
 		apiKey: apiKey,
 	}	
 
+
+	fmt.Println("asking gemini about words")
 	err = cfg.askGeminiAboutWords(*words)
+	fmt.Println("done asking gemini about words")
 	if err != nil {
 		log.Fatalf("err calling gemini, %v", err)
 		return
@@ -55,21 +59,5 @@ func main() {
 	
 }
 
-func (cfg * Config) askGeminiAboutWords(words []string) error {
-	ctx := context.TODO()
-	client, err := genai.NewClient(ctx, &genai.ClientConfig{
-		APIKey: cfg.apiKey,
-		Backend: genai.BackendGeminiAPI,
-	})
-	if err != nil {
-		return nil
-	}
 
-	result, err := client.Models.GenerateContent(ctx, "gemini-2.0-flash", genai.Text("give a fun rap back about buffalo bills"), nil)
-	if err != nil {
-		return nil
-	}
-	fmt.Println(result.Text())
-	return nil
-}
 
