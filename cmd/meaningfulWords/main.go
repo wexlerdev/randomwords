@@ -6,9 +6,6 @@ import (
 	"fmt"
 	"os"
 	"log"
-	"context"
-	"strings"
-	"google.golang.org/genai"
 	"github.com/joho/godotenv"
 )
 
@@ -44,7 +41,7 @@ func main() {
 
 	apiKey := os.Getenv("GEMINI_API_KEY")
 
-	cfg := Config{
+	cfg := &Config{
 		apiKey: apiKey,
 	}	
 
@@ -56,6 +53,7 @@ func main() {
 		log.Fatalf("err calling gemini, %v", err)
 		return
 	}
+
 	
 }
 
